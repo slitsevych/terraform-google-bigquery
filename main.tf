@@ -78,12 +78,11 @@ resource "google_bigquery_table" "main" {
   deletion_protection = coalesce(each.value["deletion_protection"], var.deletion_protection)
 
   dynamic "time_partitioning" {
-    for_each = each.value["time_partitioning"] != null ? [each.value["time_partitioning"]] : []
+    for_each = each.value["time_partitioning"] != null && length(each.value["time_partitioning"]) > 0 ? [each.value["time_partitioning"]] : []
     content {
       type                     = time_partitioning.value["type"]
       expiration_ms            = time_partitioning.value["expiration_ms"] != null ? time_partitioning.value["expiration_ms"] : 0
       field                    = time_partitioning.value["field"]
-      require_partition_filter = time_partitioning.value["require_partition_filter"]
     }
   }
 
