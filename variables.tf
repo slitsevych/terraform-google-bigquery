@@ -103,11 +103,11 @@ variable "tables" {
     table_name  = optional(string),
     schema      = string,
     clustering  = list(string),
-    time_partitioning = object({
+    time_partitioning = optional(object({
       expiration_ms            = optional(string),
       field                    = optional(string),
       type                     = optional(string),
-    }),
+    })),
     range_partitioning = object({
       field = string,
       range = object({
@@ -144,11 +144,11 @@ variable "materialized_views" {
     enable_refresh      = bool,
     refresh_interval_ms = string,
     clustering          = list(string),
-    time_partitioning = object({
+    time_partitioning = optional(object({
       expiration_ms            = optional(string),
       field                    = optional(string),
       type                     = optional(string),
-    }),
+    })),
     range_partitioning = object({
       field = string,
       range = object({
